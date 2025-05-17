@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notificación - <%= appName %></title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      color: #333333;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #ffffff;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .header {
+      text-align: center;
+      padding: 20px 0;
+      border-bottom: 1px solid #eeeeee;
+    }
+    .header h1 {
+      margin: 0;
+      color: #2c3e50;
+    }
+    .content {
+      padding: 20px 0;
+    }
+    .button {
+      display: inline-block;
+      padding: 10px 20px;
+      margin: 20px 0;
+      background-color: #2c3e50;
+      color: #ffffff !important;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+    .footer {
+      text-align: center;
+      padding: 20px 0;
+      border-top: 1px solid #eeeeee;
+      font-size: 12px;
+      color: #999999;
+    }
+    .message {
+      background-color: #f8f9fa;
+      border-left: 4px solid #2c3e50;
+      padding: 15px;
+      margin: 20px 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Notificación de <%= appName %></h1>
+    </div>
+    
+    <div class="content">
+      <p>Hola,</p>
+      
+      <div class="message">
+        <%- message %>
+      </div>
+      
+      <% if (actionUrl && actionText) { %>
+        <p style="text-align: center;">
+          <a href="<%= actionUrl %>" class="button"><%= actionText %></a>
+        </p>
+      <% } %>
+      
+      <p>Si tienes alguna pregunta o necesitas ayuda, no dudes en responder a este correo.</p>
+      
+      <p>Atentamente,<br>El equipo de <%= appName %></p>
+    </div>
+    
+    <div class="footer">
+      <p>© <%= new Date().getFullYear() %> <%= appName %>. Todos los derechos reservados.</p>
+      <p>Si prefieres no recibir este tipo de comunicaciones, <a href="<%= config.app.url %>/preferencias">actualiza tus preferencias</a>.</p>
+    </div>
+  </div>
+</body>
+</html>
