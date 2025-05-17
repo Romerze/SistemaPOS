@@ -1,0 +1,76 @@
+name: Notion Sync
+
+on:
+  issues:
+    types: [opened, closed, edited, deleted]
+  issue_comment:
+    types: [created, edited, deleted]
+
+jobs:
+  update-notion:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+      
+    - name: Update Notion
+      uses: actions/github-script@v5
+      with:
+        script: |
+          const { data: issue } = context.payload.issue;
+          const notion = require('@notionhq/client');
+          
+          // Configura tu token de integración de Notion
+          const notionClient = new notion.Client({
+            auth: process.env.NOTION_TOKEN
+          });
+          
+          // ID de tu base de datos de Notion
+          const databaseId = 'TU_DATABASE_ID';
+          
+          // Mapear estados de GitHub a Notion
+          const statusMap = {
+            'open': 'Por hacer',
+            'closed': 'Hecho'
+          };
+          
+          // Actualizar o crear página en Notion
+          async function updateNotionPage() {
+            try {
+              const response = await notionClient.pages.create({
+                parent: { database_id: databaseId },
+                properties: {
+                  'Tarea': {
+                    title: [
+                      {
+                        text: {
+                          content: issue.title
+                        }
+                      }
+                    ]
+                  },
+                  'Estado': {
+                    select: {
+                      name: statusMap[issue.state] || 'Por hacer'
+                    }
+                  },
+                  'GitHub Issue': {
+                    url: issue.html_url
+                  },
+                  'Fecha de creación': {
+                    date: {
+                      start: issue.created_at
+                    }
+                  }
+                }
+              });
+              console.log('Página actualizada en Notion:', response);
+            } catch (error) {
+              console.error('Error al actualizar Notion:', error);
+            }
+          }
+          
+          await updateNotionPage();
+      env:
+        NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
