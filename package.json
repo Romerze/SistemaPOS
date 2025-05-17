@@ -1,0 +1,35 @@
+{
+  "name": "sistemapos",
+  "version": "1.0.0",
+  "description": "Sistema profesional de Punto de Venta desarrollado con tecnologías modernas.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "jest",
+    "lint": "eslint --ext .js,.jsx src/",
+    "lint:fix": "eslint --fix --ext .js,.jsx src/",
+    "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
+    "prepare": "husky install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Romerze/SistemaPOS.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Romerze/SistemaPOS/issues"
+  },
+  "homepage": "https://github.com/Romerze/SistemaPOS#readme",
+  "devDependencies": {
+    "eslint": "^9.27.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.0.0",
+    "prettier": "^3.5.3"
+  }
+}
